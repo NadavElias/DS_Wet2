@@ -14,13 +14,16 @@ class Pixel {
     Pixel* father;
 
 public:
+    Pixel();
+    ~Pixel();
     int GetSize();
     Pixel* GetFather();
     void AddSize(int add);
 
     void SetFather(Pixel *p);
 
-    void Combine(Pixel &p1, Pixel &p2);
+    // gets two pixels that are *head of groups* and combines the groups
+    static void Combine(Pixel* p1, Pixel* p2);
 };
 
 

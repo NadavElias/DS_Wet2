@@ -4,6 +4,7 @@
 
 #ifndef DS_WET2_UFIND_H
 #define DS_WET2_UFIND_H
+
 #include "Pixel.h"
 
 class UFind {
@@ -31,6 +32,16 @@ public:
     }
 
 
+
+    void Merge(int pixel1, int pixel2){
+        Pixel::Combine(Find(pixel1), Find(pixel2));
+    }
+
+    ~UFind(){
+        for (int i = 0; i < numOfPixels; ++i) {
+            delete pixels[i];
+        }
+    }
 
 };
 #endif //DS_WET2_UFIND_H
