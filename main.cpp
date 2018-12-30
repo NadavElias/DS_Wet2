@@ -1,6 +1,6 @@
 #include <iostream>
 
 int main() {
-    std::cout << "IDAN TAMUT" << std::endl;
+    std::cout << "IDAN TAMU" << std::endl;
     return 0;
 }
