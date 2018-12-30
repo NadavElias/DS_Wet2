@@ -26,6 +26,7 @@ public:
             key(key), value(value), father(father), leftSon(leftSon), rightSon(rightSon){
         UpdateHeight();
     }
+
     K GetKey (){
         return key;
     }
