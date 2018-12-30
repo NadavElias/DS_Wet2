@@ -362,9 +362,9 @@ class RTree {
     }
 
 public:
-    MyTree():root (NULL), size (0){}
+    RTree():root (NULL), size (0){}
 
-    ~MyTree(){
+    ~RTree(){
         TreeDestroyer(root);
     }
 
