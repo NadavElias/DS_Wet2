@@ -33,6 +33,25 @@ class MyTree {
 
         return FindAux(node->GetRightSon(), key, value);
     }
+    StatusType SetValueAux(TNode<K, V>* node, K key, V value) {
+        if (node == NULL) {
+            return FAILURE;
+        }
+        if(node->GetKey() == key){
+            node->SetValue(value);
+            node->UpdateMax();
+            return SUCCESS;
+        }
+        if(node->GetKey() > key){
+            StatusType temp = SetValueAux(node->GetLeftSon(), key, value);
+            node->UpdateMax();
+            return temp;
+        }
+
+        StatusType temp = SetValueAux(node->GetRightSon(), key, value);
+        node->UpdateMax();
+        return temp;
+    }
     StatusType AddAux(TNode<K, V>* node, K key,const V& value, TNode<K, V>** new_node) {
         if (node == NULL){
             *new_node = new TNode<K, V>(key, value, node, NULL, NULL);
@@ -389,7 +408,9 @@ public:
         return root->GetMaxKey();
     }
 
-
+    StatusType SetValue(const K& key, V value){
+        SetValueAux(root, key, value);
+    }
 /*
     void GetAllSegmentsByLabel(int label, int *images, int *segments, int *numOfSegments, int* temp){
         GetAllSegmentsByLabelAux(root, label, images, segments, numOfSegments, temp, 0);
