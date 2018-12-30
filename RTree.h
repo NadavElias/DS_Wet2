@@ -19,6 +19,85 @@ class RTree {
     TNode<K, V>* root;
     int size;
 
+    static void treeToArrays(TNode<K, V>* curr, K* keys, V* values, int* index){//assumes the length of the array is correct
+        if(curr == NULL){
+            return;
+        }
+        treeToArrays(curr->GetLeftSon(), keys, values, index);
+        keys[*index] = curr->GetKey();
+        values[*index] = curr->GetValue();
+        (*index)++;
+        treeToArrays(curr->GetLeftSon(), keys, values, index);
+    }
+    static int MergeArrays(K* keys1, V* values1, K* keys2, V* values2, int length1, int length2, K** mergedKeys, V** mergedValues){//check if works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        int ptr1 = 0, ptr2 = 0, totalPtr = 0;
+        while(ptr1 < length1 && ptr2 < length2){
+            if(keys1[ptr1] < keys2[ptr2]){
+                (*mergedKeys)[totalPtr] = keys1[ptr1];
+                (*mergedValues)[totalPtr] = values1[ptr1];
+                ptr1++;
+                totalPtr++;
+            }
+            else if(keys1[ptr1] > keys2[ptr2]){
+                (*mergedKeys)[totalPtr] = keys2[ptr2];
+                (*mergedValues)[totalPtr] = values2[ptr2];
+                ptr2++;
+                totalPtr++;
+            }
+            else{
+                (*mergedKeys)[totalPtr] = keys2[ptr2];
+                (*mergedValues)[totalPtr] = values2[ptr2] + values1[ptr1];
+                ptr2++;
+                ptr1++;
+                totalPtr++;
+            }
+        }
+        while(ptr1 < length1){
+            (*mergedKeys)[totalPtr] = keys1[ptr1];
+            (*mergedValues)[totalPtr] = values1[ptr1];
+            ptr1++;
+            totalPtr++;
+        }
+        while(ptr2 < length2){
+            (*mergedKeys)[totalPtr] = keys2[ptr2];
+            (*mergedValues)[totalPtr] = values2[ptr2];
+            ptr2++;
+            totalPtr++;
+        }
+        return totalPtr;
+    }
+    static RTree<K, V>* MergeTrees(RTree<K, V>* tree1, RTree<K, V>* tree2){
+        int length1;
+        tree1->Size(&length1);
+        int length2;
+        tree2->Size(&length2);
+        K* keys1 = new K[length1];
+        V* values1 = new V[length1];
+        K* keys2 = new K[length2];
+        V* values2 = new V[length2];
+
+        int index = 0;
+        treeToArrays(tree1->root, keys1, values1, &index);
+        index = 0;
+        treeToArrays(tree2->root, keys2, values2, &index);
+
+        K* keys = new K[length1+length2];
+        V* values = new V[length1+length2];
+        int length = MergeArrays(keys1, values1, keys2, values2, length1, length2, &keys, &values);
+
+
+
+        RTree<K, V>* mergedTree = new RTree(arraysToTree(keys, values, length), length);
+
+        delete[] keys1;
+        delete[] keys2;
+        delete[] values1;
+        delete[] values2;
+        delete[] keys;
+        delete[] values;
+
+        return mergedTree;
+    }
     StatusType FindAux(TNode<K, V>* node, K key, V* value) {
         if (node == NULL) {
             return FAILURE;
@@ -411,6 +490,8 @@ public:
     StatusType SetValue(const K& key,const V& value){
         return SetValueAux(root, key, value);
     }
+
+
 /*
     void GetAllSegmentsByLabel(int label, int *images, int *segments, int *numOfSegments, int* temp){
         GetAllSegmentsByLabelAux(root, label, images, segments, numOfSegments, temp, 0);

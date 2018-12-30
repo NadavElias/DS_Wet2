@@ -3,7 +3,7 @@
 #include "RTree.h"
 
 void RTreeTests(){
-    MyTree<int, int>* check = new MyTree<int, int>;
+    RTree<int, int>* check = new RTree<int, int>;
     TNode<int, int>* temp = NULL;
     assert(check != NULL);
 
