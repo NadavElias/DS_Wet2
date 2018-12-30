@@ -100,6 +100,8 @@ public:
     }
 
     void UpdateMax(){
+        maxValue = value;
+        maxKey = key;
         if(leftSon != NULL) {
             if (leftSon->maxValue > value) {
                 maxValue = leftSon->maxValue;
@@ -111,10 +113,6 @@ public:
                 maxValue = rightSon->maxValue;
                 maxKey = rightSon->maxKey;
             }
-        }
-        if (rightSon == NULL && leftSon == NULL){
-            maxValue = value;
-            maxKey = key;
         }
     }
 
