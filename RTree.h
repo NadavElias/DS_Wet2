@@ -11,6 +11,7 @@
 #include<stdlib.h>
 #include <assert.h>
 #include "TNode.h"
+#include "library.h"
 
 
 template <class K, class V>
