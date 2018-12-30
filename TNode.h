@@ -6,11 +6,14 @@
 #define DS_WET2_TNODE_H
 
 #include<stdlib.h>
+#include <assert.h>
 
 template <class K, class V>
 class TNode {
     K key;
     V value;
+    K maxKey;
+    V maxValue;
 
     TNode* father;
     TNode* leftSon;
@@ -20,10 +23,10 @@ class TNode {
 
 public:
     TNode (const K& key,const V& value) :
-            key(key), value(value), father(NULL), leftSon(NULL), rightSon(NULL), height(0){}
+            key(key), value(value), maxKey(key), max(value), father(NULL), leftSon(NULL), rightSon(NULL), height(0){}
 
     TNode (const K& key, const V& value, TNode<K, V>* father, TNode<K, V>* leftSon, TNode<K, V>* rightSon) :
-            key(key), value(value), father(father), leftSon(leftSon), rightSon(rightSon){
+            key(key), value(value), maxKey(key), max(value), father(father), leftSon(leftSon), rightSon(rightSon){
         UpdateHeight();
     }
 
@@ -32,6 +35,12 @@ public:
     }
     V GetValue (){
         return value;
+    }
+    V GetMaxValue (){
+        return maxValue;
+    }
+    V GetMaxKey (){
+        return maxKey;
     }
     V* GetValueByPointer (){
         return &value;
@@ -72,6 +81,12 @@ public:
     void SetValue(V new_value){
         value = new_value;
     }
+    void SetMaxValue(V new_value){
+        maxValue = new_value;
+    }
+    void SetMaxKey(K new_value){
+        maxKey = new_value;
+    }
     //assumes the heights of left and right son are updated. (use this function for upwards recursion)
     void UpdateHeight(){
         int lH = -1, rH = -1;
@@ -82,6 +97,21 @@ public:
             rH = rightSon->height;
         }
         height = lH >= rH ? lH + 1 : rH + 1;
+    }
+
+    void UpdateMax(){
+        if(leftSon != NULL) {
+            if (leftSon->maxValue > value) {
+                maxValue = leftSon->maxValue;
+                maxKey = leftSon->maxKey;
+            }
+        }
+        if(rightSon != NULL) {
+            if (rightSon->maxValue >= value) {
+                maxValue = rightSon->maxValue;
+                maxKey = rightSon->maxKey;
+            }
+        }
     }
 
 
