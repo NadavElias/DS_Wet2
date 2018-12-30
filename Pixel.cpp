@@ -4,6 +4,17 @@
 
 #include "Pixel.h"
 
+static void Pixel::Combine(Pixel& p1, Pixel& p2){
+    RTree<int, int> t = MergeTrees(p1.labels, p2.labels);
+    if (p1.size < p2.size){
+        p1.father = &p2;
+        p2.size += p1.size;
+    } else{
+        p2.father = &p1;
+        p1.size += p2.size;
+    }
+}
+
 int Pixel::GetSize(){
     return size;
 }

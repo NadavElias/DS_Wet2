@@ -9,7 +9,7 @@
 
 
 class Pixel {
-    RTree<int, int> labels;
+    RTree<int, int>* labels;
     int size;
     Pixel* father;
 
@@ -19,6 +19,8 @@ public:
     void AddSize(int add);
 
     void SetFather(Pixel *p);
+
+    void Combine(Pixel &p1, Pixel &p2);
 };
 
 

@@ -441,6 +441,8 @@ class RTree {
 public:
     RTree():root (NULL), size (0){}
 
+    RTree(TNode<K, V>* root, int size):root (root), size (size){}
+
     ~RTree(){
         TreeDestroyer(root);
     }
