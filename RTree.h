@@ -187,6 +187,7 @@ class MyTree {
         }
         bool didRoll = false;
         node->UpdateHeight();
+        node->UpdateMax();
         if(node->GetBalanceFactor() >= 2){
             if(node->GetLeftSon()->GetBalanceFactor() >= 0){
                 assert(node->GetLeftSon() != NULL);
@@ -211,9 +212,9 @@ class MyTree {
                 didRoll = true;
             }
         }
-        if(onlyOnce && didRoll) {
+        /*if(onlyOnce && didRoll) {
             return;
-        }
+        }*/
         DoRoll(node->GetFather(), onlyOnce);
     }
     //A is the Left son of B at first
@@ -237,7 +238,9 @@ class MyTree {
         }
         B->SetFather(A);
         B->UpdateHeight();
+        B->UpdateMax();
         A->UpdateHeight();
+        A->UpdateMax();
     }
     //A is the right son of B at first
     void RRRoll(TNode<K, V>* A, TNode<K, V>* B){
@@ -260,7 +263,9 @@ class MyTree {
         }
         B->SetFather(A);
         B->UpdateHeight();
+        B->UpdateMax();
         A->UpdateHeight();
+        A->UpdateMax();
     }
     //B is the right son of A, A is the left son of C at first
     void LRRoll(TNode<K, V>* A, TNode<K, V>* B, TNode<K, V>* C){
@@ -289,8 +294,11 @@ class MyTree {
         B->SetLeftSon(A);
         B->SetRightSon(C);
         A->UpdateHeight();
+        A->UpdateMax();
         C->UpdateHeight();
+        C->UpdateMax();
         B->UpdateHeight();
+        B->UpdateMax();
     }
     //B is the left son of A, A is the right son of C at first
     void RLRoll(TNode<K, V>* A, TNode<K, V>* B, TNode<K, V>* C){
@@ -319,8 +327,11 @@ class MyTree {
         B->SetRightSon(A);
         B->SetLeftSon(C);
         A->UpdateHeight();
+        A->UpdateMax();
         C->UpdateHeight();
+        C->UpdateMax();
         B->UpdateHeight();
+        B->UpdateMax();
     }
     void TreeDestroyer(TNode<K, V>* toDelete){
         if(toDelete == NULL){
@@ -373,6 +384,12 @@ public:
     TNode<K, V>* GetRoot(){
         return root;
     }
+
+    V GetMax(){
+        return root->GetMaxKey();
+    }
+
+
 /*
     void GetAllSegmentsByLabel(int label, int *images, int *segments, int *numOfSegments, int* temp){
         GetAllSegmentsByLabelAux(root, label, images, segments, numOfSegments, temp, 0);
