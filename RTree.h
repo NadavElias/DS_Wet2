@@ -85,8 +85,6 @@ class RTree {
         V* values = new V[length1+length2];
         int length = MergeArrays(keys1, values1, keys2, values2, length1, length2, &keys, &values);
 
-
-
         RTree<K, V>* mergedTree = new RTree(arraysToTree(keys, values, length), length);
 
         delete[] keys1;
