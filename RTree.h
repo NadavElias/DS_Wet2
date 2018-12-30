@@ -15,7 +15,7 @@
 
 
 template <class K, class V>
-class MyTree {
+class RTree {
     TNode<K, V>* root;
     int size;
 
