@@ -408,8 +408,8 @@ public:
         return root->GetMaxKey();
     }
 
-    StatusType SetValue(const K& key, V value){
-        SetValueAux(root, key, value);
+    StatusType SetValue(const K& key, V& value){
+        return SetValueAux(root, key, value);
     }
 /*
     void GetAllSegmentsByLabel(int label, int *images, int *segments, int *numOfSegments, int* temp){

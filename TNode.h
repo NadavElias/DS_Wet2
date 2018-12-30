@@ -23,10 +23,10 @@ class TNode {
 
 public:
     TNode (const K& key,const V& value) :
-            key(key), value(value), maxKey(key), max(value), father(NULL), leftSon(NULL), rightSon(NULL), height(0){}
+            key(key), value(value), maxKey(key), maxValue(value), father(NULL), leftSon(NULL), rightSon(NULL), height(0){}
 
     TNode (const K& key, const V& value, TNode<K, V>* father, TNode<K, V>* leftSon, TNode<K, V>* rightSon) :
-            key(key), value(value), maxKey(key), max(value), father(father), leftSon(leftSon), rightSon(rightSon){
+            key(key), value(value), maxKey(key), maxValue(value), father(father), leftSon(leftSon), rightSon(rightSon){
         UpdateHeight();
     }
 
@@ -111,6 +111,10 @@ public:
                 maxValue = rightSon->maxValue;
                 maxKey = rightSon->maxKey;
             }
+        }
+        if (rightSon == NULL && leftSon == NULL){
+            maxValue = value;
+            maxKey = key;
         }
     }
 
