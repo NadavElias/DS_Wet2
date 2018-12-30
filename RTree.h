@@ -408,7 +408,7 @@ public:
         return root->GetMaxKey();
     }
 
-    StatusType SetValue(const K& key, V& value){
+    StatusType SetValue(const K& key,const V& value){
         return SetValueAux(root, key, value);
     }
 /*
