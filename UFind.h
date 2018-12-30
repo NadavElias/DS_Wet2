@@ -4,14 +4,33 @@
 
 #ifndef DS_WET2_UFIND_H
 #define DS_WET2_UFIND_H
+#include "Pixel.h"
 
-template<class T>
 class UFind {
-    T* items;
-    int numOfItems;
+    Pixel** pixels;
+    int numOfPixels;
 public:
 
-    UFind(int numOfItems): numOfItems(numOfItems), items(new T[numOfItems]){};
+    UFind(int numOfItems):  pixels(new Pixel*[numOfPixels]), numOfPixels(numOfPixels){
+        for (int i = 0; i < numOfPixels; ++i) {
+            pixels[i] = new Pixel();
+        }
+    };
+
+    Pixel* Find(int pixelNum){
+        Pixel* curr = pixels[pixelNum];
+        while(curr->GetFather() != NULL){
+            curr = curr->GetFather();
+        }
+        Pixel* headOfGroup = curr;
+        curr = pixels[pixelNum];
+        while(curr->GetFather() != NULL){
+            curr->SetFather(headOfGroup);
+        }
+        return headOfGroup;
+    }
+
+
 
 };
 #endif //DS_WET2_UFIND_H
