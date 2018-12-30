@@ -1,25 +1,24 @@
 #include <iostream>
 #include <assert.h>
 #include "RTree.h"
+#include "UFind.h"
 
 void RTreeTests(){
-    RTree<int, int>* tree1 = new RTree<int, int>;
-    RTree<int, int>* tree2 = new RTree<int, int>;
-    TNode<int, int>* temp = NULL;
-    assert(tree1 != NULL);
-    assert(tree2 != NULL);
+    UFind* check = new UFind(10);
+    Pixel* temp;
+    temp = check->Find(4);
+    assert(temp->GetSize() == 1);
+    assert(temp->GetFather() == NULL);
 
-    assert(tree1->Add(3, 3, &temp) == SUCCESS);
-    assert(tree1->Add(1, 1, &temp) == SUCCESS);
-    assert(tree1->Add(6, 5, &temp) == SUCCESS);
-    assert(tree2->Add(4, 4, &temp) == SUCCESS);
-    assert(tree2->Add(2, 2, &temp) == SUCCESS);
-    assert(tree2->Add(7, 7, &temp) == SUCCESS);
-    assert(tree2->Add(6, 6, &temp) == SUCCESS);
-
-    RTree<int, int>* M = RTree<int, int>::MergeTrees(tree1, tree2);
-
-
+    check->Merge(3, 5);
+    assert(check->Find(3) == check->Find(5));
+    assert(check->Find(3) != check->Find(4));
+    check->Merge(6, 7);
+    assert(check->Find(6) == check->Find(7));
+    assert(check->Find(6) != check->Find(5));
+    check->Merge(6, 3);
+    assert(check->Find(5) == check->Find(7));
+    assert(check->Find(6) != check->Find(8));
 }
 
 int main() {

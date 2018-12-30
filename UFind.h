@@ -12,7 +12,7 @@ class UFind {
     int numOfPixels;
 public:
 
-    UFind(int numOfItems):  pixels(new Pixel*[numOfPixels]), numOfPixels(numOfPixels){
+    UFind(int numOfPixels):  pixels(new Pixel*[numOfPixels]), numOfPixels(numOfPixels){
         for (int i = 0; i < numOfPixels; ++i) {
             pixels[i] = new Pixel();
         }
@@ -26,7 +26,9 @@ public:
         Pixel* headOfGroup = curr;
         curr = pixels[pixelNum];
         while(curr->GetFather() != NULL){
+            Pixel* temp = curr->GetFather();
             curr->SetFather(headOfGroup);
+            curr = temp;
         }
         return headOfGroup;
     }
