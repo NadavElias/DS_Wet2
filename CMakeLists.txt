@@ -3,4 +3,4 @@ project(DS_Wet2)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(DS_Wet2 main.cpp HTable.h RTree.h TNode.h UFind.)
+add_executable(DS_Wet2 main.cpp HTable.h RTree.h TNode.h UFind.h)
