@@ -5,9 +5,13 @@
 #ifndef DS_WET2_UFIND_H
 #define DS_WET2_UFIND_H
 
-class UFind<class T> {
+template<class T>
+class UFind {
     T* items;
-    int numOfItems
+    int numOfItems;
+public:
+
+    UFind(int numOfItems): numOfItems(numOfItems), items(new T[numOfItems]){};
 
 };
 #endif //DS_WET2_UFIND_H
