@@ -3,16 +3,21 @@
 #include "RTree.h"
 
 void RTreeTests(){
-    RTree<int, int>* check = new RTree<int, int>;
+    RTree<int, int>* tree1 = new RTree<int, int>;
+    RTree<int, int>* tree2 = new RTree<int, int>;
     TNode<int, int>* temp = NULL;
-    assert(check != NULL);
+    assert(tree1 != NULL);
+    assert(tree2 != NULL);
 
+    assert(tree1->Add(3, 3, &temp) == SUCCESS);
+    assert(tree1->Add(1, 1, &temp) == SUCCESS);
+    assert(tree1->Add(6, 5, &temp) == SUCCESS);
+    assert(tree2->Add(4, 4, &temp) == SUCCESS);
+    assert(tree2->Add(2, 2, &temp) == SUCCESS);
+    assert(tree2->Add(7, 7, &temp) == SUCCESS);
+    assert(tree2->Add(6, 6, &temp) == SUCCESS);
 
-    for (int i = 0; i < 100; ++i) {
-        assert(check->Add(i, 0, &temp) == SUCCESS);
-        assert(check->GetMax() == i);
-    }
-
+    RTree<int, int>* M = RTree<int, int>::MergeTrees(tree1, tree2);
 
 
 }

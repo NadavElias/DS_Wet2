@@ -4,8 +4,9 @@
 
 #include "Pixel.h"
 
-static void Pixel::Combine(Pixel& p1, Pixel& p2){
-    RTree<int, int>* labels = MergeTrees(p1.labels, p2.labels);
+
+void Pixel::Combine(Pixel& p1, Pixel& p2){
+    RTree<int, int>* labels = RTree<int, int>::MergeTrees(p1.labels, p2.labels);
     delete p1.labels;
     delete p2.labels;
     if (p1.size < p2.size){
