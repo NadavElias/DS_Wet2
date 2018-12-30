@@ -12,10 +12,7 @@
 #include <assert.h>
 #include "TNode.h"
 
-/*typedef enum {ALLOCATION_ERROR,
-    INVALID_INPUT,
-    FAILURE,
-    SUCCESS} StatusType;*/
+
 template <class K, class V>
 class MyTree {
     TNode<K, V>* root;
