@@ -11,15 +11,15 @@
 
 
 template <class K, class V>
-class MyList {
+class List {
     ListNode<K, V>* first;
     int size;
 
 public:
-    MyList():
+    List():
             first (NULL), size (0){}
 
-    ~MyList(){
+    ~List(){
         ListNode<K, V>* curr = first;
         while (curr != NULL) {
             ListNode<K, V> *temp = curr->GetNext();
