@@ -33,7 +33,10 @@ void RTreeTests(){
 
 int main() {
     std::cout << "Begin Tests:" << std::endl;
-    RTreeTests();
+    //RTreeTests();
+    RTree<int, int> r = RTree<int, int>();
+    delete &r;
+    delete &r;
     std::cout << "End Tests" << std::endl;
 
     return 0;
