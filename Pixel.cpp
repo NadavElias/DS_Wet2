@@ -14,6 +14,8 @@ void Pixel::Combine(Pixel* p1, Pixel* p2){
     RTree<int, int>* labels = RTree<int, int>::MergeTrees(p1->labels, p2->labels);
     delete p1->labels;
     delete p2->labels;
+    p1->labels = NULL;
+    p2->labels = NULL;
     if (p1->size < p2->size){
         p1->father = p2;
         p2->size += p1->size;

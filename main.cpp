@@ -4,21 +4,31 @@
 #include "UFind.h"
 
 void RTreeTests(){
-    UFind* check = new UFind(10);
-    Pixel* temp;
-    temp = check->Find(4);
-    assert(temp->GetSize() == 1);
-    assert(temp->GetFather() == NULL);
+    RTree<int, int>* check1 = new RTree<int, int>();
+    RTree<int, int>* check2 = new RTree<int, int>();
+    TNode<int, int>* temp = NULL;
+    for (int i = 0; i < 100; ++i) {
+        check1->Add(i, i, &temp);
+    }
+    for (int i = 50; i < 170; ++i) {
+        check2->Add(i, i, &temp);
+    }
 
-    check->Merge(3, 5);
-    assert(check->Find(3) == check->Find(5));
-    assert(check->Find(3) != check->Find(4));
-    check->Merge(6, 7);
-    assert(check->Find(6) == check->Find(7));
-    assert(check->Find(6) != check->Find(5));
-    check->Merge(6, 3);
-    assert(check->Find(5) == check->Find(7));
-    assert(check->Find(6) != check->Find(8));
+    assert(check1->IsBalanced());
+    assert(check1->IsSearch());
+
+    assert(check2->IsBalanced());
+    assert(check2->IsSearch());
+
+    RTree<int, int>* M = new RTree<int, int>();
+
+    M = RTree<int, int>::MergeTrees(check1, check2);
+
+    assert(M->IsBalanced());
+    assert(M->IsSearch());
+    delete check1;
+    delete check2;
+    delete M;
 }
 
 int main() {
