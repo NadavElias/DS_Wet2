@@ -51,13 +51,13 @@ public:
     }
 
     StatusType Remove (int imageID){
-        checkIsSmall();
         UFind* res = NULL;
         if (Find(imageID) == NULL){
             return FAILURE;
         }
         table[hash(imageID)].Delete(imageID);
         numOfImages--;
+        checkIsSmall();
         return SUCCESS;
     }
 };
