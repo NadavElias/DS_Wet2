@@ -39,6 +39,9 @@ void Pixel::SetFather(Pixel* p){
 void Pixel::AddSize(int add){
     size+=add;
 }
+RTree* Pixel::GetLabels(){
+    return labels;
+}
 Pixel::~Pixel(){
     delete labels;
 }

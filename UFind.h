@@ -35,8 +35,11 @@ public:
 
 
 
-    void Merge(int pixel1, int pixel2){
+    StatusType Merge(int pixel1, int pixel2){
+        if (Find(pixel1) == Find(pixel2))
+            return FAILURE;
         Pixel::Combine(Find(pixel1), Find(pixel2));
+        return SUCCESS;
     }
 
     ~UFind(){

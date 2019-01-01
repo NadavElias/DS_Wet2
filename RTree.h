@@ -130,7 +130,9 @@ class RTree {
             return SUCCESS;
         }
         if (node->GetKey() == key) {
-            node->SetValue(value);
+            TNode<K, V>* temp = NULL;
+            Delete(key);
+            Add(key, value, &temp);
             return SUCCESS;
         }
         if (node->GetKey() > key) {
@@ -477,8 +479,11 @@ public:
         return root;
     }
 
-    V GetMax(){
-        return root->GetMaxKey();
+    StatusType GetMax(K* key){
+        if (root == NULL || size == 0)
+            return FAILURE;
+        *key = root->GetMaxKey();
+        return SUCCESS;
     }
 
     StatusType SetValue(const K& key,const V& value){

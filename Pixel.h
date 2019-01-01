@@ -21,6 +21,7 @@ public:
     Pixel* GetFather();
     void AddSize(int add);
 
+    RTree* GetLabels();
     void SetFather(Pixel *p);
 
     // gets two pixels that are *head of groups* and combines the groups
