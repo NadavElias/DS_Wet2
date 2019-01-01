@@ -46,6 +46,7 @@ public:
         for (int i = 0; i < numOfPixels; ++i) {
             delete pixels[i];
         }
+        delete[] pixels;
     }
 
 };

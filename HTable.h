@@ -61,6 +61,7 @@ public:
             ListNode<int, UFind*>* it = table[i].getFirst();
             while (it != NULL){
                 delete it->GetValue();
+                it = it->GetNext();
             }
         }
         delete[] table;
@@ -88,10 +89,10 @@ public:
     }
 
     StatusType Remove (int imageID){
-        UFind* res = NULL;
         if (Find(imageID) == NULL){
             return FAILURE;
         }
+        delete Find(imageID);
         table[hash(imageID)].Delete(imageID);
         numOfImages--;
         checkIsSmall();
