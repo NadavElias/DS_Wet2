@@ -22,7 +22,7 @@ StatusType StaticEye::SetLabelScore(int imageID, int pixel, int label, int score
     UFind* image = images.Find(imageID);
     if (image == NULL)
         return FAILURE;
-    TNode* trash;
+    TNode<int, int>* trash;
     return image->Find(pixel)->GetLabels()->Add(label, score, &trash);
 }
 
@@ -32,7 +32,7 @@ StatusType StaticEye::ResetLableScore(int imageID, int pixel, int label){
     UFind* image = images.Find(imageID);
     if (image == NULL)
         return FAILURE;
-    TNode* trash;
+    TNode<int, int>* trash;
     return image->Find(pixel)->GetLabels()->Delete(label);
 }
 
@@ -42,7 +42,7 @@ StatusType StaticEye::GetHighestScoredLabel(int imageID, int pixel, int* label){
     UFind* image = images.Find(imageID);
     if (image == NULL)
         return FAILURE;
-    TNode* trash;
+    TNode<int, int>* trash;
     return image->Find(pixel)->GetLabels()->GetMax(label);
 }
 

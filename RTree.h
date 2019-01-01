@@ -495,6 +495,19 @@ public:
         tree1->Size(&length1);
         int length2;
         tree2->Size(&length2);
+        if (length1 == 0 && length2 == 0){
+            delete tree1;
+            delete tree2;
+            return new RTree<K, V>();
+        }
+        if (length1 == 0){
+            delete tree1;
+            return tree2;
+        }
+        if (length2 == 0){
+            delete tree2;
+            return tree1;
+        }
         K* keys1 = new K[length1];
         V* values1 = new V[length1];
         K* keys2 = new K[length2];
@@ -509,7 +522,7 @@ public:
         V* values = new V[length1+length2];
         int length = MergeArrays(keys1, values1, keys2, values2, length1, length2, &keys, &values);
 
-        RTree<K, V>* mergedTree = new RTree(arraysToTree(keys, values, length), length);
+        RTree<K, V>* mergedTree = new RTree<K, V>(arraysToTree(keys, values, length), length);
 
         delete[] keys1;
         delete[] keys2;
@@ -517,6 +530,9 @@ public:
         delete[] values2;
         delete[] keys;
         delete[] values;
+
+        delete tree1;
+        delete tree2;
 
         return mergedTree;
     } // delete trees!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
