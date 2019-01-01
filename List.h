@@ -14,10 +14,11 @@ template <class K, class V>
 class List {
     ListNode<K, V>* first;
     int size;
+    ListNode<K, V>* iter;
 
 public:
     List():
-            first (NULL), size (0){}
+            first (NULL), size (0), iter(NULL){}
 
     ~List(){
         ListNode<K, V>* curr = first;
@@ -122,7 +123,15 @@ public:
         }
     }
     ListNode<K, V>* getFirst(){
-        return
+        iter = first;
+        return first;
+    }
+    ListNode<K, V>* getNext(){
+        if(iter == NULL){
+            return NULL;
+        }
+        iter = iter->GetNext();
+        return iter;
     }
 
 };

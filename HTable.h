@@ -88,6 +88,7 @@ public:
     }
 
     StatusType Remove (int imageID){
+        UFind* res = NULL;
         if (Find(imageID) == NULL){
             return FAILURE;
         }

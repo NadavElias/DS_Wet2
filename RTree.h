@@ -130,7 +130,8 @@ class RTree {
             return SUCCESS;
         }
         if (node->GetKey() == key) {
-            return FAILURE;
+            node->SetValue(value);
+            return SUCCESS;
         }
         if (node->GetKey() > key) {
             if (node->GetLeftSon() == NULL) {
