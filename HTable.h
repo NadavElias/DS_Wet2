@@ -5,14 +5,14 @@
 #ifndef DS_WET2_HTABLE_H
 #define DS_WET2_HTABLE_H
 
-#define STARTING_SIZE 2
+#define INITIAL_SIZE 2
 
 #include "UFind.h"
 #include "List.h"
 
 class HTable {
     int tableSize, numOfImages, numOfPixels;
-    List<int, UFind>** table;
+    List<int, UFind*>* table;
 
     int hash(int imageID){
         return imageID % tableSize;
@@ -23,25 +23,52 @@ class HTable {
             return;
         }
         tableSize *= 2;
-        List<int, UFind>** temp = new List<int, UFind>*[tableSize];
-        for (int i = 0; i < tableSize/2 ; ++i) {
-
+        List<int, UFind*>* temp = new List<int, UFind*>[tableSize];
+        ListNode<int, UFind*>* trash;
+        for (int i = 0; i < tableSize/2; ++i) {
+            ListNode<int, UFind*>* it = table[i].getFirst();
+            while (it != NULL){
+                temp[hash(it->GetKey())].Add(it->GetKey(), it->GetValue(), &trash);
+                delete it->GetValue();
+            }
         }
+        delete[] table;
+        table = temp;
     }
 
     void checkIsSmall(){
-
+        if(numOfImages > tableSize/4 || tableSize <= INITIAL_SIZE){
+            return;
+        }
+        tableSize /= 2;
+        List<int, UFind*>* temp = new List<int, UFind*>[tableSize];
+        ListNode<int, UFind*>* trash;
+        for (int i = 0; i < tableSize*2; ++i) {
+            ListNode<int, UFind*>* it = table[i].getFirst();
+            while (it != NULL){
+                temp[hash(it->GetKey())].Add(it->GetKey(), it->GetValue(), &trash);
+                delete it->GetValue();
+            }
+        }
+        delete[] table;
+        table = temp;
     }
 
 public:
-    HTable(int numOfPixels) : tableSize(STARTING_SIZE), numOfImages(0), numOfPixels(numOfPixels), table(new List<int, UFind>*[tableSize]){}
+    HTable(int numOfPixels) : tableSize(INITIAL_SIZE), numOfImages(0), numOfPixels(numOfPixels), table(new List<int, UFind*>[tableSize]){}
     ~HTable(){
+        for (int i = 0; i < tableSize ; ++i) {
+            ListNode<int, UFind*>* it = table[i].getFirst();
+            while (it != NULL){
+                delete it->GetValue();
+            }
+        }
         delete[] table;
     }
 
     UFind* Find (int imageID){
         UFind* res = NULL;
-        if (table[hash(imageID)]->Find(imageID, res) == FAILURE){
+        if (table[hash(imageID)].Find(imageID, &res) == FAILURE){
             return NULL;
         }
         return res;
@@ -54,18 +81,17 @@ public:
         if (Find(imageID) != NULL){
             return FAILURE;
         }
-        ListNode<int, UFind>* n = NULL;
-        table[hash(imageID)]->Add(imageID, UFind(numOfPixels), &n);
+        ListNode<int, UFind*>* n = NULL;
+        table[hash(imageID)].Add(imageID, new UFind(numOfPixels), &n);
         numOfImages++;
         return SUCCESS;
     }
 
     StatusType Remove (int imageID){
-        UFind* res = NULL;
         if (Find(imageID) == NULL){
             return FAILURE;
         }
-        table[hash(imageID)]->Delete(imageID);
+        table[hash(imageID)].Delete(imageID);
         numOfImages--;
         checkIsSmall();
         return SUCCESS;
