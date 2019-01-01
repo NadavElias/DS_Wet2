@@ -121,6 +121,10 @@ public:
             i++;
         }
     }
+    ListNode<K, V>* getFirst(){
+        return
+    }
+
 };
 
 

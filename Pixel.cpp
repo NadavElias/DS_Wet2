@@ -4,7 +4,7 @@
 
 #include "Pixel.h"
 
-Pixel::Pixel() : labels(new RTree<int, int>()), size(1), father(NULL) {
+Pixel::Pixel(int i) : pixelNum(i), labels(new RTree<int, int>()), size(1), father(NULL) {
 
 }
 

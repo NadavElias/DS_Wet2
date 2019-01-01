@@ -9,12 +9,13 @@
 
 
 class Pixel {
+    int pixelNum;
     RTree<int, int>* labels;
     int size;
     Pixel* father;
 
 public:
-    Pixel();
+    Pixel(int i);
     ~Pixel();
     int GetSize();
     Pixel* GetFather();

@@ -14,7 +14,7 @@ public:
 
     UFind(int numOfPixels):  pixels(new Pixel*[numOfPixels]), numOfPixels(numOfPixels){
         for (int i = 0; i < numOfPixels; ++i) {
-            pixels[i] = new Pixel();
+            pixels[i] = new Pixel(i);
         }
     };
 
