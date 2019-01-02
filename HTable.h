@@ -29,7 +29,8 @@ class HTable {
             ListNode<int, UFind*>* it = table[i].getFirst();
             while (it != NULL){
                 temp[hash(it->GetKey())].Add(it->GetKey(), it->GetValue(), &trash);
-                delete it->GetValue();
+                //delete it->GetValue();
+                it = it->GetNext();
             }
         }
         delete[] table;
@@ -47,7 +48,8 @@ class HTable {
             ListNode<int, UFind*>* it = table[i].getFirst();
             while (it != NULL){
                 temp[hash(it->GetKey())].Add(it->GetKey(), it->GetValue(), &trash);
-                delete it->GetValue();
+                //delete it->GetValue();
+                it = it->GetNext();
             }
         }
         delete[] table;
