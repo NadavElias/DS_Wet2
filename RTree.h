@@ -19,6 +19,14 @@ class RTree {
     TNode<K, V>* root;
     int size;
 
+    static void updateTreeMax(TNode<K, V>* node){
+        if (node == NULL)
+            return;
+        updateTreeMax(node->GetLeftSon());
+        updateTreeMax(node->GetRightSon());
+        node->UpdateMax();
+    }
+
     static TNode<K, V>* arraysToTree(K* keys, V* values, int length){
         assert(length >= 0);
         if(length == 0)
@@ -523,6 +531,8 @@ public:
         int length = MergeArrays(keys1, values1, keys2, values2, length1, length2, &keys, &values);
 
         RTree<K, V>* mergedTree = new RTree<K, V>(arraysToTree(keys, values, length), length);
+
+        updateTreeMax(mergedTree->root);
 
         delete[] keys1;
         delete[] keys2;

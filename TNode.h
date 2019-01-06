@@ -77,9 +77,11 @@ public:
     }
     void SetKey(K new_key){
         key = new_key;
+        UpdateMax();
     }
     void SetValue(V new_value){
         value = new_value;
+        UpdateMax();
     }
     void SetMaxValue(V new_value){
         maxValue = new_value;
@@ -103,13 +105,13 @@ public:
         maxValue = value;
         maxKey = key;
         if(leftSon != NULL) {
-            if (leftSon->maxValue > value) {
+            if (leftSon->maxValue > maxValue) {
                 maxValue = leftSon->maxValue;
                 maxKey = leftSon->maxKey;
             }
         }
         if(rightSon != NULL) {
-            if (rightSon->maxValue >= value) {
+            if (rightSon->maxValue >= maxValue) {
                 maxValue = rightSon->maxValue;
                 maxKey = rightSon->maxKey;
             }
